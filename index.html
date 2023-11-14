@@ -55,6 +55,24 @@
         updateBannerVisibility();
       }
 
+      function resizeCanvasToDisplaySize(canvas) {
+      // Lookup the size the browser is displaying the canvas in CSS pixels.
+      const displayWidth  = canvas.clientWidth;
+      const displayHeight = canvas.clientHeight;
+      
+      // Check if the canvas is not the same size.
+      const needResize = canvas.width  !== displayWidth ||
+                         canvas.height !== displayHeight;
+      
+      if (needResize) {
+        // Make the canvas the same size
+        canvas.width  = displayWidth;
+        canvas.height = displayHeight;
+      }
+      
+      return needResize;
+      }
+
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/LKCBuild.loader.js";
       var config = {
@@ -67,6 +85,8 @@
         productVersion: "0.1",
         showBanner: unityShowBanner,
       };
+
+      var gl = canvas.getContext("webgl");
 
       // By default Unity keeps WebGL canvas render target size matched with
       // the DOM size of the canvas element (scaled by window.devicePixelRatio)
@@ -107,7 +127,8 @@
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1); 
+            unityInstance.SetFullscreen(1);
+            resizeCanvasToDisplaySize(gl.canvas);
           };
         }).catch((message) => {
           alert(message);
