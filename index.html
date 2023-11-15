@@ -55,18 +55,16 @@
         updateBannerVisibility();
       }
 
-      function keyPress (e) {
-        if(unityInstance != null){
-          if(e.key === "Escape") {
-            unityInstance.Quit().then(function(){
+      document.body.addEventListener('keypress', function(e) {
+        if (e.key == "Escape") {
+          unityInstance.Quit().then(function(){
               unityInstance = null;
               createUnityInstance(canvas, config, (progress) => {
                 progressBarFull.style.width = 100 * progress + "%";
               })
-            });
-          }
+          });
         }
-      }
+      });
       
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/LKCBuild.loader.js";
