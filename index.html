@@ -88,7 +88,7 @@
       // the canvas DOM size and WebGL render target sizes yourself.
       config.matchWebGLToCanvasSize = false;
 
-      canvas.addEventListener("Resize",function(){
+      window.addEventListener("Resize",function(){
         unityInstance.Quit().then(function(){
           console.log("quit");
           unityInstance = null;
