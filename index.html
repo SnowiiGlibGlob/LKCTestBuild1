@@ -127,8 +127,9 @@
         });
       };
       document.body.appendChild(script);
-
+      console.log("rch");
       window.addEventListener("Resize",function(){
+        console.log("cahage");
         unityInstance.Quit().then(function(){
           console.log("quit");
           unityInstance = null;
